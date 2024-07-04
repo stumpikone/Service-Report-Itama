@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (page === 'login.html') {
                     document.getElementById('loginForm').addEventListener('submit', handleLogin);
-                } else if (page === 'report.html') {
-                    document.getElementById('serviceReportForm').addEventListener('submit', handleReportSubmit);
+                } else if (page === 'register.html') {
+                    document.getElementById('registerForm').addEventListener('submit', handleRegister);
+                } else if (page === 'main.html') {
+                    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
                 }
             })
             .catch(error => console.error('Error loading page:', error));
@@ -19,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial load
     loadPage('login.html');
+
+    // Dummy variable to simulate admin status (replace with actual logic)
+    let isAdmin = false;
 
     // Handle login
     function handleLogin(event) {
@@ -28,26 +33,63 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('password').value;
 
         // Dummy check for demo purposes
-        if (username === 'tech' && password === '1234') {
-            loadPage('report.html');
-        } else {
-            alert('Invalid username or password');
+        if (username === 'admin' && password === 'admin') {
+            isAdmin = true;
         }
+
+        // Redirect to main page after login
+        loadPage('main.html');
     }
 
-    // Handle report form submission
-    function handleReportSubmit(event) {
+    // Handle registration (only accessible if isAdmin is true)
+    function handleRegister(event) {
         event.preventDefault();
 
+        if (!isAdmin) {
+            alert('Only admins can create new accounts.');
+            return;
+        }
+
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
         const formData = {
-            technicianName: document.getElementById('technicianName').value,
-            serviceDate: document.getElementById('serviceDate').value,
-            equipmentServiced: document.getElementById('equipmentServiced').value,
-            issuesResolved: document.getElementById('issuesResolved').value,
+            fullname,
+            email,
+            username,
+            password
         };
 
-        console.log('Form Data Submitted:', formData);
-        alert('Report submitted successfully!');
-        document.getElementById('serviceReportForm').reset();
+        // Replace with actual API endpoint and fetch call
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Account created successfully!');
+                loadPage('login.html'); // Redirect to login page after registration
+            } else {
+                alert('Failed to create account');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to create account');
+        });
+    }
+
+    // Handle logout
+    function handleLogout(event) {
+        event.preventDefault();
+
+        // Perform logout actions (e.g., clear session, redirect to login page)
+        isAdmin = false;
+        loadPage('login.html');
     }
 });

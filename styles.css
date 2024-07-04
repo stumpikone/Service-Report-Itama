@@ -84,3 +84,63 @@ button:hover {
 .additional-options a:hover {
     text-decoration: underline;
 }
+
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styling for header and navigation */
+header {
+    background-color: #f2f2f2; /* Light grey background color */
+    color: #333; /* Darker text color */
+    padding: 20px 20px; /* Reduced padding around the header */
+    display: flex;
+    justify-content: last baseline;
+    align-items: center;
+    position: fixed;
+    width: 100%; /* Ensure header spans full width */
+    height: 70px;
+    top:0;
+    left: 0; /* Ensure it starts from the left edge */
+    z-index: 1000; /* Ensure it's above other content */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add shadow for a separated look */
+}
+
+.logo {
+    /* Removed background color */
+    padding-right: 10px; /* Space between logo and navigation links */
+}
+
+.logo img {
+    margin-top: 20px;
+    height: 30px; /* Original height for the logo */
+    border-radius: 5px; /* Rounded corners for the logo image */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for navigation items */
+    align-items: center; /* Align items to the center */
+}
+
+nav ul li {
+    margin-left: 12px; /* Spacing between navigation items */
+}
+
+nav ul li a {
+    color: #333; /* Text color for navigation links */
+    text-decoration: none;
+    padding: 8px;
+}
+
+/* Styling for main content */
+.main-content {
+    padding: 20px;
+    margin-top: 50px; /* Adjusted margin-top for the main content */
+    border-top: 1px solid #ccc; /* Border to separate header and main content */
+}
